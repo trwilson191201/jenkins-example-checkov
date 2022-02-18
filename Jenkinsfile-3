@@ -28,7 +28,7 @@ spec:
     stage('analyze compliant') {
       steps {
         container('checkov') {
-          sh 'checkov -d compliant'
+          sh 'checkov -d compliant --quiet --compact'
         }
       }
     }
