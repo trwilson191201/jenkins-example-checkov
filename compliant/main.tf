@@ -20,5 +20,25 @@ resource "aws_s3_bucket" "foo-bucket" {
       }
     }
   }
+  replication_configuration {
+    role = aws_iam_role.replication.arn
+    rules {
+      id     = "foobar"
+      prefix = "foo"
+      status = "Enabled"
+
+      destination {
+        bucket        = aws_s3_bucket.destination.arn
+        storage_class = "STANDARD"
+      }
+    }
+  }  
   acl           = "private"
+}
+
+resource "aws_s3_bucket_public_access_block" "access_foo_bucket_1" {
+  bucket = aws_s3_bucket.foo-bucket.id
+
+  block_public_acls   = true
+  block_public_policy = true
 }
