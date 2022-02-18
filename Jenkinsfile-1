@@ -18,10 +18,17 @@ spec:
     }
   }
   stages {
-    stage('test') {
+    stage('verify version') {
       steps {
         container('checkov') {
           sh 'checkov --version'
+        }
+      }
+    }
+    stage('check the help') {
+      steps {
+        container('checkov') {
+          sh 'checkov --help'
         }
       }
     }
