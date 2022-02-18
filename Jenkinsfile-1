@@ -1,0 +1,29 @@
+pipeline {
+  agent {
+    kubernetes {
+      label 'checkov'
+      yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkov
+spec:
+  containers:
+  - name: checkov
+    image: bridgecrew/checkov:2.0.869
+    command:
+    - cat
+    tty: true
+'''   
+    }
+  }
+  stages {
+    stage('test') {
+      steps {
+        container('checkov') {
+          sh 'checkov --version'
+        }
+      }
+    }
+  }
+}
