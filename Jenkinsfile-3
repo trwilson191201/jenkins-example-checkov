@@ -25,10 +25,10 @@ spec:
         }
       }
     }
-    stage('analyze non-compliant') {
+    stage('analyze compliant') {
       steps {
         container('checkov') {
-          sh 'checkov -d non-compliant'
+          sh 'checkov -d compliant'
         }
       }
     }
