@@ -2,6 +2,7 @@ resource "aws_s3_bucket" "foo-bucket" {
   region        = var.region
   bucket        = local.bucket_name
   force_destroy = true
+
   tags = {
     Name = "foo-${data.aws_caller_identity.current.account_id}"
   }
@@ -20,27 +21,5 @@ resource "aws_s3_bucket" "foo-bucket" {
       }
     }
   }
-  replication_configuration {
-    role = aws_iam_role.replication.arn
-    rules {
-      id     = "foobar"
-      prefix = "foo"
-      status = "Enabled"
-
-      destination {
-        bucket        = aws_s3_bucket.destination.arn
-        storage_class = "STANDARD"
-      }
-    }
-  }  
   acl           = "private"
-}
-
-resource "aws_s3_bucket_public_access_block" "access_foo_bucket_1" {
-  bucket = aws_s3_bucket.foo-bucket.id
-
-  block_public_acls   = true
-  block_public_policy = true
-  restrict_public_buckets = true
-  ignore_public_acls=true
 }

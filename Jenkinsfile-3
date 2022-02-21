@@ -10,7 +10,7 @@ metadata:
 spec:
   containers:
   - name: checkov
-    image: bridgecrew/checkov:2.0.869
+    image: bridgecrew/checkov:2.0.880
     command:
     - cat
     tty: true
@@ -28,7 +28,7 @@ spec:
     stage('analyze compliant') {
       steps {
         container('checkov') {
-          sh 'checkov -d compliant --quiet --compact'
+          sh 'checkov -d compliant'
         }
       }
     }
