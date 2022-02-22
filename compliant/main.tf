@@ -41,4 +41,6 @@ resource "aws_s3_bucket_public_access_block" "access_good_1" {
 
   block_public_acls   = true
   block_public_policy = true
+  restrict_public_buckets = true
+  ignore_public_acls=true
 }
