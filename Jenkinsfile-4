@@ -1,6 +1,7 @@
 pipeline {
   agent {
     kubernetes {
+      label 'checkov'
       yaml '''
 apiVersion: v1
 kind: Pod
