@@ -22,4 +22,17 @@ resource "aws_s3_bucket" "foo-bucket" {
     }
   }
   acl           = "private"
+  replication_configuration {
+    role = aws_iam_role.replication.arn
+    rules {
+      id     = "foobar"
+      prefix = "foo"
+      status = "Enabled"
+
+      destination {
+        bucket        = aws_s3_bucket.destination.arn
+        storage_class = "STANDARD"
+      }
+    }
+  }  
 }
